@@ -59,11 +59,12 @@ A snapshot script records every test user's enabled state, department, manager, 
 
 | Screenshot | What it shows |
 |---|---|
-| `01-workflows-deployed.png` | Three workflows, one per lifecycle stage, each at version 2 |
-| `02-joiner-run-history.png` | v1 `failed` beside v2 `completedWithErrors` — the cancel-cascade fix |
-| `03-leaver-task-results.png` | Every leaver task completed, applied by the service |
-| `04-leaver-diff.png` | `3 groups → 0` for the departing vendor |
-| `05-mover-diff.png` | Department `Finance → Security`, new department group granted |
+| `01-workflows-deployed.png` | All three workflows deployed at version 2, with every task GUID resolved from the live tenant catalog |
+| `02-joiner-run-history.png` | Both joiner runs side by side: v1 `failed` with two tasks *canceled*, v2 `completedWithErrors` after the reorder |
+| `03-leaver-audit-trail.png` | Entra audit log for the departing vendor: `Disable account`, refresh-token revocation, and three `Remove member from group` events — every one initiated by **Lifecycle Workflows**, not by an administrator |
+| `04-leaver-diff.png` | Snapshot diff: `GroupCount 3 → 0`, naming each group removed |
+| `05-mover-diff.png` | Snapshot diff: `Department Finance → Security`, `SG-Dept-Security` granted |
+| `06-joiner-audit-trail.png` | Entra audit log for the new hire: workflow execution, group membership, and Temporary Access Pass registration, attributed to the service |
 
 ## Final Results
 
@@ -128,9 +129,10 @@ entra-identity-lifecycle-jml/
 └── screenshots/
     ├── 01-workflows-deployed.png
     ├── 02-joiner-run-history.png
-    ├── 03-leaver-task-results.png
+    ├── 03-leaver-audit-trail.png
     ├── 04-leaver-diff.png
-    └── 05-mover-diff.png
+    ├── 05-mover-diff.png
+    └── 06-joiner-audit-trail.png
 ```
 
 > Performed in a Microsoft Entra ID tenant I own. All identities are fictional test accounts. Tenant identifiers, sign-in names and object IDs are redacted from screenshots and script output; the scripts mask the signed-in account and tenant ID by default.
